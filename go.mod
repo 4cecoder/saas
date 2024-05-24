@@ -4,6 +4,7 @@ go 1.22.3
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	golang.org/x/crypto v0.23.0
 	gorm.io/gorm v1.25.10
 )

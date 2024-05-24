@@ -185,6 +185,8 @@ type Seat struct {
 type SeatStatus string
 
 const (
+	UserRole           = "user"
+	AdminRole          = "admin"
 	SeatStatusActive   SeatStatus = "active"
 	SeatStatusInactive SeatStatus = "inactive"
 	SeatStatusInvited  SeatStatus = "invited"
