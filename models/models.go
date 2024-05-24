@@ -1,3 +1,4 @@
+// Package models/models.go
 package models
 
 import (
@@ -20,21 +21,21 @@ type Base struct {
 // User represents a user in the system
 type User struct {
 	Base
-	Email             string               `gorm:"unique" json:"email"`
-	Password          string               `json:"-"`
-	PasswordHash      string               `json:"-"`
-	Name              string               `json:"name"`
-	Roles             []Role               `gorm:"many2many:user_roles;" json:"roles"`
-	Organizations     []Organization       `gorm:"many2many:user_organizations;" json:"organizations"`
-	Seats             []Seat               `json:"seats"`
-	Permissions       []Permission         `gorm:"many2many:user_permissions;" json:"permissions"`
-	VerificationCode  string               `json:"-"`
-	Verified          bool                 `json:"verified"`
-	ActivityLogs      []ActivityLog        `json:"activity_logs"`
+	Email             string                 `gorm:"unique" json:"email"`
+	Password          string                 `json:"-"`
+	PasswordHash      string                 `json:"-"`
+	Name              string                 `json:"name"`
+	Roles             []Role                 `gorm:"many2many:user_roles;" json:"roles"`
+	Organizations     []Organization         `gorm:"many2many:user_organizations;" json:"organizations"`
+	Seats             []Seat                 `json:"seats"`
+	Permissions       []Permission           `gorm:"many2many:user_permissions;" json:"permissions"`
+	VerificationCode  string                 `json:"-"`
+	Verified          bool                   `json:"verified"`
+	ActivityLogs      []ActivityLog          `json:"activity_logs"`
 	NotificationPrefs NotificationPreference `gorm:"foreignKey:UserID" json:"notification_prefs"`
-	Locale            string               `json:"locale"`
-	Timezone          string               `json:"timezone"`
-	Language          string               `json:"language"`
+	Locale            string                 `json:"locale"`
+	Timezone          string                 `json:"timezone"`
+	Language          string                 `json:"language"`
 }
 
 // BeforeCreate is a GORM hook that runs before creating a new user
@@ -95,17 +96,17 @@ type Permission struct {
 // Organization represents a company or group
 type Organization struct {
 	Base
-	Name            string               `json:"name"`
-	Users           []User               `gorm:"many2many:user_organizations;" json:"users"`
-	Subscriptions   []Subscription       `json:"subscriptions"`
-	SubscriptionPlan SubscriptionPlan    `json:"subscription_plan"`
-	Seats           []Seat               `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"seats"`
-	Domains         []Domain             `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"domains"`
-	Settings        OrganizationSettings `gorm:"embedded" json:"settings"`
-	AuditLogs       []AuditLog           `json:"audit_logs"`
-	ActivityLogs    []ActivityLog        `json:"activity_logs"`
-	APIKeys         []APIKey             `json:"api_keys"`
-	Workflows       []Workflow           `json:"workflows"`
+	Name             string               `json:"name"`
+	Users            []User               `gorm:"many2many:user_organizations;" json:"users"`
+	Subscriptions    []Subscription       `json:"subscriptions"`
+	SubscriptionPlan SubscriptionPlan     `json:"subscription_plan"`
+	Seats            []Seat               `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"seats"`
+	Domains          []Domain             `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"domains"`
+	Settings         OrganizationSettings `gorm:"embedded" json:"settings"`
+	AuditLogs        []AuditLog           `json:"audit_logs"`
+	ActivityLogs     []ActivityLog        `json:"activity_logs"`
+	APIKeys          []APIKey             `json:"api_keys"`
+	Workflows        []Workflow           `json:"workflows"`
 }
 
 // OrganizationSettings represents the settings for an organization
@@ -118,15 +119,15 @@ type OrganizationSettings struct {
 // Subscription represents a subscription for an organization
 type Subscription struct {
 	Base
-	OrganizationID   uint                  `json:"organization_id"`
-	SubscriptionPlan SubscriptionPlan      `json:"subscription_plan"`
-	Status           SubscriptionStatus    `json:"status"`
-	StartDate        time.Time             `json:"start_date"`
-	EndDate          time.Time             `json:"end_date"`
+	OrganizationID   uint                 `json:"organization_id"`
+	SubscriptionPlan SubscriptionPlan     `json:"subscription_plan"`
+	Status           SubscriptionStatus   `json:"status"`
+	StartDate        time.Time            `json:"start_date"`
+	EndDate          time.Time            `json:"end_date"`
 	Transactions     []PaymentTransaction `json:"transactions"`
-	PaymentMethod    string                `json:"payment_method"`
-	LastPaymentDate  time.Time             `json:"last_payment_date"`
-	NextBillingDate  time.Time             `json:"next_billing_date"`
+	PaymentMethod    string               `json:"payment_method"`
+	LastPaymentDate  time.Time            `json:"last_payment_date"`
+	NextBillingDate  time.Time            `json:"next_billing_date"`
 }
 
 // BeforeCreate is a GORM hook that runs before creating a new subscription
@@ -185,8 +186,8 @@ type Seat struct {
 type SeatStatus string
 
 const (
-	UserRole           = "user"
-	AdminRole          = "admin"
+	UserRole                      = "user"
+	AdminRole                     = "admin"
 	SeatStatusActive   SeatStatus = "active"
 	SeatStatusInactive SeatStatus = "inactive"
 	SeatStatusInvited  SeatStatus = "invited"
@@ -203,12 +204,12 @@ type Domain struct {
 // AuditLog represents an audit log entry
 type AuditLog struct {
 	Base
-	UserID       uint       `json:"user_id"`
-	Action       string     `json:"action"`
-	ResourceType string     `json:"resource_type"`
-	ResourceID   uint       `json:"resource_id"`
-	Timestamp    time.Time  `json:"timestamp"`
-	Changes      JSONMap    `json:"changes" gorm:"type:jsonb"`
+	UserID       uint         `json:"user_id"`
+	Action       string       `json:"action"`
+	ResourceType string       `json:"resource_type"`
+	ResourceID   uint         `json:"resource_id"`
+	Timestamp    time.Time    `json:"timestamp"`
+	Changes      JSONMap      `json:"changes" gorm:"type:jsonb"`
 	Organization Organization `gorm:"foreignKey:OrganizationID" json:"organization"`
 }
 
@@ -227,35 +228,35 @@ type PaymentTransaction struct {
 // NotificationPreference represents user notification preferences
 type NotificationPreference struct {
 	Base
-	UserID           uint   `json:"user_id"`
-	EmailEnabled     bool   `json:"email_enabled"`
-	SMSEnabled       bool   `json:"sms_enabled"`
-	InAppEnabled     bool   `json:"in_app_enabled"`
-	BillingEmails    bool   `json:"billing_emails"`
-	ProductEmails    bool   `json:"product_emails"`
-	MarketingEmails  bool   `json:"marketing_emails"`
+	UserID          uint `json:"user_id"`
+	EmailEnabled    bool `json:"email_enabled"`
+	SMSEnabled      bool `json:"sms_enabled"`
+	InAppEnabled    bool `json:"in_app_enabled"`
+	BillingEmails   bool `json:"billing_emails"`
+	ProductEmails   bool `json:"product_emails"`
+	MarketingEmails bool `json:"marketing_emails"`
 }
 
 // ActivityLog represents user activity log
 type ActivityLog struct {
 	Base
-	UserID         uint       `json:"user_id"`
-	OrganizationID uint       `json:"organization_id"`
-	ActivityType   string     `json:"activity_type"`
-	Timestamp      time.Time  `json:"timestamp"`
-	Metadata       JSONMap    `json:"metadata" gorm:"type:jsonb"`
+	UserID         uint      `json:"user_id"`
+	OrganizationID uint      `json:"organization_id"`
+	ActivityType   string    `json:"activity_type"`
+	Timestamp      time.Time `json:"timestamp"`
+	Metadata       JSONMap   `json:"metadata" gorm:"type:jsonb"`
 }
 
 // APIKey represents an API key for authentication
 type APIKey struct {
 	Base
-	UserID        uint       `json:"user_id"`
-	OrganizationID uint       `json:"organization_id"`
-	Key           string     `gorm:"unique" json:"key"`
-	Name          string     `json:"name"`
-	Permissions   []string   `json:"permissions" gorm:"type:jsonb"`
-	ExpiresAt     time.Time  `json:"expires_at"`
-	LastUsedAt    time.Time  `json:"last_used_at"`
+	UserID         uint      `json:"user_id"`
+	OrganizationID uint      `json:"organization_id"`
+	Key            string    `gorm:"unique" json:"key"`
+	Name           string    `json:"name"`
+	Permissions    []string  `json:"permissions" gorm:"type:jsonb"`
+	ExpiresAt      time.Time `json:"expires_at"`
+	LastUsedAt     time.Time `json:"last_used_at"`
 }
 
 // BeforeCreate is a GORM hook that runs before creating a new API key
@@ -269,12 +270,12 @@ func (k *APIKey) BeforeCreate(tx *gorm.DB) error {
 // Workflow represents a workflow process
 type Workflow struct {
 	Base
-	Name           string     `json:"name"`
-	Description    string     `json:"description"`
+	Name           string         `json:"name"`
+	Description    string         `json:"description"`
 	Steps          []WorkflowStep `json:"steps" gorm:"type:jsonb"`
-	OrganizationID uint       `json:"organization_id"`
-	CreatorID      uint       `json:"creator_id"`
-	Enabled        bool       `json:"enabled"`
+	OrganizationID uint           `json:"organization_id"`
+	CreatorID      uint           `json:"creator_id"`
+	Enabled        bool           `json:"enabled"`
 }
 
 // WorkflowStep represents a step in a workflow process

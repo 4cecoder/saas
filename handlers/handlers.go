@@ -1,3 +1,4 @@
+// Package handlers/handlers.go
 package handlers
 
 import (
@@ -7,12 +8,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"saas/models"
+	"github.com/4cecoder/saas/models"
 )
 
 // Handler is a struct that holds the database connection
 type Handler struct {
 	DB *gorm.DB
+}
+
+// NewHandler creates a new instance of the Handler struct
+func NewHandler(db *gorm.DB) *Handler {
+	return &Handler{DB: db}
 }
 
 // CreateUser creates a new user
