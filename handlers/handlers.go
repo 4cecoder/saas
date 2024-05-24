@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"myapp/models"
+	"saas/models"
 )
 
 // Handler is a struct that holds the database connection
